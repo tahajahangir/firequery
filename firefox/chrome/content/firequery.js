@@ -662,16 +662,16 @@ FBL.ns(function() {
             };
             jQuery.__FireQueryShared.__exposedProps__.data_originalReplacedByFireQuery = "r";
             jQuery.data = function(elem, name, data, showInternals) {
-                var originalDataImplementation = this.__FireQueryShared.data_originalReplacedByFireQuery;
+                var originalDataImplementation = jQuery.__FireQueryShared.data_originalReplacedByFireQuery;
                 // since jQuery 1.7, jQuery.data() does not show internal jQuery data structures like 'events'
                 // there is a 4th optional private parameter on jQuery.data() which enables original behavior
                 // https://github.com/darwin/firequery/issues/24
                 var reading = (data===undefined && !(typeof name === "object" || typeof name === "function")); // when reading values
                 var writing = !reading;
-                var forceInternals = this.__FireQueryShared.getPref('showInternalData')?true:undefined;
+                var forceInternals = jQuery.__FireQueryShared.getPref('showInternalData')?true:undefined;
                 if (writing) {
                     var snapshot = originalDataImplementation.apply(this, [elem, undefined, undefined, forceInternals]).res;
-                    var oldData = this.__FireQueryShared.extend(true, {}, snapshot); // need to do a deep copy of the whole structure
+                    var oldData = jQuery.__FireQueryShared.extend(true, {}, snapshot); // need to do a deep copy of the whole structure
                 }
                 var res = originalDataImplementation.apply(this, [elem, name, data, showInternals]).res;
                 if (writing) {
@@ -680,7 +680,7 @@ FBL.ns(function() {
                         // add/modify all newData
                         for (var item in newData) {
                             if (newData.hasOwnProperty(item)) {
-                                if (!this.__FireQueryShared.eq(oldData[item], newData[item], [], [])) { // highlight only modified items
+                                if (!jQuery.__FireQueryShared.eq(oldData[item], newData[item], [], [])) { // highlight only modified items
                                     mutateData.call(context.getPanel('html'), elem, MODIFICATION, item, newData[item]);
                                 }
                             }
@@ -710,17 +710,17 @@ FBL.ns(function() {
             };
             jQuery.__FireQueryShared.__exposedProps__.removeData_originalReplacedByFireQuery = "r";
             jQuery.removeData = function(elem, name) {
-                var originalDataImplementation = this.__FireQueryShared.data_originalReplacedByFireQuery;
-                var forceInternals = this.__FireQueryShared.getPref('showInternalData')?true:undefined;
+                var originalDataImplementation = jQuery.__FireQueryShared.data_originalReplacedByFireQuery;
+                var forceInternals = jQuery.__FireQueryShared.getPref('showInternalData')?true:undefined;
                 var snapshot = originalDataImplementation.apply(this, [elem, undefined, undefined, forceInternals]).res;
-                var oldData = this.__FireQueryShared.extend(true, {}, snapshot); // need to do a deep copy of the whole structure
-                var res = this.__FireQueryShared.removeData_originalReplacedByFireQuery.apply(this, Array.prototype.slice.apply(arguments)).res;
+                var oldData = jQuery.__FireQueryShared.extend(true, {}, snapshot); // need to do a deep copy of the whole structure
+                var res = jQuery.__FireQueryShared.removeData_originalReplacedByFireQuery.apply(this, Array.prototype.slice.apply(arguments)).res;
                 try {
                     var newData = originalDataImplementation.apply(this, [elem, undefined, undefined, forceInternals]).res;
                     // add/modify all newData
                     for (var item in newData) {
                         if (newData.hasOwnProperty(item)) {
-                            if (!this.__FireQueryShared.eq(oldData[item], newData[item], [], [])) { // highlight only modified items
+                            if (!jQuery.__FireQueryShared.eq(oldData[item], newData[item], [], [])) { // highlight only modified items
                                 mutateData.call(context.getPanel('html'), elem, MODIFICATION, item, newData[item]);
                             }
                         }

@@ -131,9 +131,9 @@ task :default do
   File.unlink(res) if File.exists?(res)
   puts "#{cmd_color('zipping')} #{file_color(res)}"
   Dir.chdir(TMP) do
-    puts ('need zip on command line (download http://www.info-zip.org/Zip.html)').red unless system("zip -r \"#{res}\" *");
+    #puts ('need zip on command line (download http://www.info-zip.org/Zip.html)').red unless system("zip -r \"#{res}\" *");
   end
-  remove_dir(TMP) if File.exist?(TMP) # recursive!
+  #remove_dir(TMP) if File.exist?(TMP) # recursive!
   
   puts "\ninstaller is in #{res.yellow}, enjoy!"
 end
