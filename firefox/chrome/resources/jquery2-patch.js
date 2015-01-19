@@ -23,7 +23,7 @@
       // send event for each matched element
       this.each(function() {
         var event = new CustomEvent("firequery-event", { "detail": detail });
-        this.dispatchEvent(event);
+        window.dispatchEvent(event);
       });
       // simulate original return value
       return res;
@@ -52,7 +52,7 @@
       };
       // send event
       var event = new CustomEvent("firequery-event", { "detail": detail });
-      elem.dispatchEvent(event);
+      window.dispatchEvent(event);
       // simulate original return value
       return res;
     };
